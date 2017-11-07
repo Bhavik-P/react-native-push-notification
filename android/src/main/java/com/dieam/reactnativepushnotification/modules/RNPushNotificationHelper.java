@@ -164,6 +164,17 @@ public class RNPushNotificationHelper {
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setAutoCancel(bundle.getBoolean("autoCancel", true));
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notification = new NotificationCompat.Builder(context, "Notifications")
+                        .setContentTitle(title)
+                        .setTicker(bundle.getString("ticker"))
+                        .setChannelId("Notifications")
+                        .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setAutoCancel(bundle.getBoolean("autoCancel", true));
+                notification.setChannelId("Notification");
+            }
+
             String group = bundle.getString("group");
             if (group != null) {
                 notification.setGroup(group);
